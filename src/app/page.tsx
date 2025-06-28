@@ -6,11 +6,16 @@ import PokemonCard from "./pokemon/PokemonCard";
 
 const Pokedex = () => {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
+  const [filter, setFilter] = useState("")
 
   const getRandomIntInclusive = (min: number, max: number) => {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+  }
+
+  const update = (event: { preventDefault: () => void; currentTarget: { value: React.SetStateAction<string>; }; }) => {
+    setFilter(event.currentTarget.value)
   }
   
   const offset = getRandomIntInclusive(0, 1277);
@@ -82,17 +87,16 @@ const Pokedex = () => {
 
 
   const pokemonCards = pokemon.map((p) => {
-    return (
-    <PokemonCard
-      key={p.name}
-      name={p.name}
-      picture={p.picture}
-      types={p.types}
-      abilities={p.abilities}
-      stats={p.stats}
-    />
-    )
-  })
+    if (p.name.toLowerCase().includes(filter)) {
+      return (<PokemonCard
+        key={p.name}
+        name={p.name}
+        picture={p.picture}
+        types={p.types}
+        abilities={p.abilities}
+        stats={p.stats} />)
+    }
+  });
 
   return (
   <> 
@@ -105,6 +109,18 @@ const Pokedex = () => {
 
     <div className="home">
       <div className="columns is-multiline has-text-centered">
+        <div className="column is-4" />
+        <div className="column is-4">
+          <input className="input is-large is-success"
+            type="text"
+            onChange={update}
+            value={filter}
+            placeholder="Filter search"
+            style={{ marginTop: 20 }}
+          />
+        
+        </div>
+        <div className="column is-4" />
         {pokemonCards}
       </div>
     </div>
