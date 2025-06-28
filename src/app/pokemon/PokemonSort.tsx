@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
-const PokemonSort = (props: { setSort: (arg0: any) => void; }) => {
-    const setSort = (event: { currentTarget: { value: any; }; }) => {
+const PokemonSort = (props: { setSort: (arg0: string) => void; }) => {
+    const setSort = (event: { currentTarget: { value: string; }; }) => {
         props.setSort(event.currentTarget.value);
     }
 
