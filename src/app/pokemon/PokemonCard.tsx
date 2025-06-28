@@ -7,7 +7,7 @@ const PokemonCard = (props: Pokemon) => {
     const abilities = props.abilities.toString().split(',').join(', ');
 
     return (
-        <div className="column is-4" style={{ marginTop: 10 }}>
+        <div className="column is-3" style={{ marginTop: 10 }}>
             <div className="card">
                 <div>
                     <figure className="image">
@@ -18,8 +18,8 @@ const PokemonCard = (props: Pokemon) => {
 
                 <div className="card-content">
                     <p className="title is-1 is-underlined">{name}</p>
-                    <p className="title">Type: {types}</p>
-                    <p className="title">Abilities: {abilities}</p>
+                    <p className="title is-4">Type: {types}</p>
+                    <p className="title is-4">Abilities: {abilities}</p>
                     <div className="columns is-multiline">
                         <div className="column is-4">
                             <p className="subtitle">
