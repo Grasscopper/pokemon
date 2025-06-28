@@ -18,6 +18,7 @@ const PokemonCard = (props: Pokemon) => {
 
                 <div className="card-content">
                     <p className="title is-1 is-underlined">{name}</p>
+                    <p className="subtitle">#{props.pokedex}</p>
                     <p className="title is-4">Type: {types}</p>
                     <p className="title is-4">Abilities: {abilities}</p>
                     <div className="columns is-multiline">

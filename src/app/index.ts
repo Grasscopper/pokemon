@@ -4,6 +4,7 @@ export interface Pokemon {
   types: string[];
   abilities: string[];
   stats: Stat;
+  pokedex: number;
 }
 
 export interface Stat {
@@ -14,6 +15,3 @@ export interface Stat {
   specialDefense: number;
   speed: number;
 }
-
-  // Show the 6 Base Stats
-  // Include abilities
