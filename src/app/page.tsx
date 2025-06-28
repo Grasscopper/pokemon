@@ -41,21 +41,21 @@ const Pokedex = () => {
           let name = foundPokemon.name;
           name = name.charAt(0).toUpperCase() + name.slice(1);
 
-          let types: string[] = [];
+          const types: string[] = [];
           for (const t of foundPokemon.types) {
             let type = t.type.name;
             type = type.charAt(0).toUpperCase() + type.slice(1);
             types.push(type);
           }
 
-          let abilities: string[] = [];
+          const abilities: string[] = [];
           for (const a of foundPokemon.abilities) {
             let ability = a.ability.name;
             ability = ability.charAt(0).toUpperCase() + ability.slice(1);
             abilities.push(ability);
           }
 
-          let stats: Stat = {
+          const stats: Stat = {
             hp: foundPokemon.stats[0].base_stat,
             attack: foundPokemon.stats[1].base_stat,
             defense: foundPokemon.stats[2].base_stat,
