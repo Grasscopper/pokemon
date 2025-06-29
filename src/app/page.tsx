@@ -4,31 +4,40 @@ import React, { useState, useEffect } from "react";
 import { Pokemon, Stat } from './index'
 import PokemonCard from "./pokemon/PokemonCard";
 import PokemonSort from "./pokemon/PokemonSort";
+import { getRandomIntInclusive, findSortingFunction } from './helperFunctions/helpers';
 
 const Pokedex = () => {
   const [pokemon, setPokemon] = useState<Pokemon[]>([]);
   const [pokeball, setPokeball] = useState(false);
+  const [pokeballType, setPokeballType] = useState("Random");
+
   const [filter, setFilter] = useState("")
   const [sort, setSort] = useState("pokedex")
-
-  const getRandomIntInclusive = (min: number, max: number) => {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
-  }
 
   const update = (event: { currentTarget: { value: string; }; }) => {
     setFilter(event.currentTarget.value);
   }
 
-  const throwPokeball = () => {
+  const throwPokeball = (event: { currentTarget: { id: React.SetStateAction<string>; }; }) => {
     setPokemon([]);
+    if (event.currentTarget.id === "Random") setPokeballType("Random");
+    else if (event.currentTarget.id === "Kanto") setPokeballType("Kanto");
     setPokeball(!pokeball);
   }
   
   useEffect(() => {
-    const offset = getRandomIntInclusive(0, 1277);
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=25&offset=${offset}`)
+    let limit = 25;
+    let offset = getRandomIntInclusive(0, 1277);
+    if (pokeballType == "Random") {
+      limit = 25;
+      offset = getRandomIntInclusive(0, 1277);
+    }
+    else if (pokeballType == "Kanto") {
+      limit = 151;
+      offset = 0;
+    }
+
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
     .then((response) => {
         if (response.ok) return response;
         else {
@@ -93,75 +102,8 @@ const Pokedex = () => {
     })
     .catch((error) => console.error(`Cannot fetch list of Pokemon: ${error.message}`));
   }, [pokeball]);
-  
-  const sortByPokedex = (a: Pokemon, b: Pokemon) => a.pokedex - b.pokedex;
 
-  const sortByName = (a: Pokemon, b: Pokemon) => {
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
-  };
-
-  const sortByType = (a: Pokemon, b: Pokemon) => {
-    const nameA = a.types[0].toUpperCase();
-    const nameB = b.types[0].toUpperCase();
-    if (nameA < nameB) return -1;
-    if (nameA > nameB) return 1;
-    return 0;
-  };
-
-  const sortByHp = (a: Pokemon, b: Pokemon) => a.stats.hp - b.stats.hp;
-  const sortByAttack = (a: Pokemon, b: Pokemon) => a.stats.attack - b.stats.attack;
-  const sortByDefense = (a: Pokemon, b: Pokemon) => a.stats.defense - b.stats.defense;
-  const sortBySpecialAttack = (a: Pokemon, b: Pokemon) => a.stats.specialAttack - b.stats.specialAttack;
-  const sortBySpecialDefense = (a: Pokemon, b: Pokemon) => a.stats.specialDefense - b.stats.specialDefense;
-  const sortBySpeed = (a: Pokemon, b: Pokemon) => a.stats.hp - b.stats.speed;
-
-  let sortingFunction = sortByPokedex;
-  switch (sort) {
-    case "pokedex":
-      sortingFunction = sortByPokedex;
-      break;
-
-    case "name":
-      sortingFunction = sortByName;
-      break;
-
-    case "type":
-      sortingFunction = sortByType;
-      break;
-
-    case "hp":
-      sortingFunction = sortByHp;
-      break;
-
-    case "attack":
-      sortingFunction = sortByAttack;
-      break;
-
-    case "defense":
-      sortingFunction = sortByDefense;
-      break;
-
-    case "specialAttack":
-      sortingFunction = sortBySpecialAttack;
-      break;
-
-    case "specialDefense":
-      sortingFunction = sortBySpecialDefense;
-      break;
-
-    case "speed":
-      sortingFunction = sortBySpeed;
-      break;
-          
-    default:
-      sortingFunction = sortByPokedex;
-      break;
-  }
-
+  const sortingFunction = findSortingFunction(sort);
   const pokemonCards = pokemon.sort(sortingFunction).map((p) => {
     if (p.name.toLowerCase().includes(filter.toLowerCase())) {
       return (<PokemonCard
@@ -187,7 +129,7 @@ const Pokedex = () => {
     <div className="home">
       <div className="columns is-multiline has-text-centered">   
         <div className="column is-4" />
-        <div className="column is-3">
+        <div className="column is-2">
           <input className="input is-large is-success"
             type="text"
             onChange={update}
@@ -196,11 +138,18 @@ const Pokedex = () => {
             style={{ marginTop: 20 }}
           />
         </div>
-        <div className="column is-1">
+        <div className="column is-2 field is-grouped">
           <button className="button is-success"
+          id="Random"
           style={{ marginTop: 30 }}
           onClick={throwPokeball}>
             Throw Pokeball
+          </button>
+          <button className="button is-danger"
+          id="Kanto"
+          style={{ marginTop: 30 }}
+          onClick={throwPokeball}>
+            Visit Kanto
           </button>
         </div>
         <div className="column is-4" />
