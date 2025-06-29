@@ -8,8 +8,8 @@ const PokemonCard = (props: Pokemon) => {
     const abilities = props.abilities.toString().split(',').join(', ');
 
     let backgroundTopColor = getTypeColors(props.types[0])[0];
-    let backgroundBottomColor = getTypeColors(props.types[0])[0];
-    let textColor = getTypeColors(props.types[0])[1];
+    const backgroundBottomColor = getTypeColors(props.types[0])[0];
+    const textColor = getTypeColors(props.types[0])[1];
 
     if (props.types.length === 2) {
         backgroundTopColor = getTypeColors(props.types[1])[0];
