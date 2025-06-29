@@ -13,11 +13,16 @@ const Pokedex = () => {
   const [pokeballType, setPokeballType] = useState("Random");
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [filter, setFilter] = useState("")
+  const [nameFilter, setNameFilter] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
   const [sort, setSort] = useState("pokedex")
 
-  const update = (event: { currentTarget: { value: string; }; }) => {
-    setFilter(event.currentTarget.value);
+  const updateName = (event: { currentTarget: { value: string; }; }) => {
+    setNameFilter(event.currentTarget.value);
+  }
+
+  const updateType = (event: { currentTarget: { value: string; }; }) => {
+    setTypeFilter(event.currentTarget.value);
   }
 
   const throwPokeball = (event: { currentTarget: { id: React.SetStateAction<string>; }; }) => {
@@ -114,7 +119,14 @@ const Pokedex = () => {
   const sortingFunction = findSortingFunction(sort);
 
   const pokemonCards = displayedPokemon.sort(sortingFunction).map((p) => {
-    if (p.name.toLowerCase().includes(filter.toLowerCase())) {
+    const nameMatches = p.name.toLowerCase().includes(nameFilter.toLowerCase());
+    let typeMatches = false;
+    for (const type of p.types) {
+      if (type.toLowerCase().includes(typeFilter.toLowerCase())) {
+        typeMatches = true;
+      }
+    }
+    if (nameMatches && typeMatches) {
       return (<PokemonCard
         key={p.name}
         name={p.name}
@@ -137,16 +149,33 @@ const Pokedex = () => {
 
     <div className="home">
       <div className="columns is-multiline has-text-centered">   
-        <div className="column is-4" />
+
+        <div className="column is-3" />
+
         <div className="column is-2">
-          <input className="input is-large is-success"
-            type="text"
-            onChange={update}
-            value={filter}
-            placeholder="Filter Pokemon"
-            style={{ marginTop: 20 }}
-          />
+          <div className="field">
+            <label className="label">Pokemon Name</label>
+            <input className="input is-large is-success"
+              type="text"
+              onChange={updateName}
+              value={nameFilter}
+              placeholder="Filter Name"
+            />
+          </div>
         </div>
+
+        <div className="column is-2">
+          <div className="field">
+            <label className="label">Pokemon Type</label>
+            <input className="input is-large is-success"
+              type="text"
+              onChange={updateType}
+              value={typeFilter}
+              placeholder="Filter Type"
+            />
+          </div>
+        </div>
+
         <div className="column is-2 field is-grouped">
           <button className="button is-success"
           id="Random"
@@ -161,7 +190,8 @@ const Pokedex = () => {
             Visit Kanto
           </button>
         </div>
-        <div className="column is-4" />
+
+        <div className="column is-3" />
 
         <div className="column is-3" />
         <div className="column is-6">
@@ -173,10 +203,11 @@ const Pokedex = () => {
         <div className="column is-3" />
 
         <div className="column is-4" />
-        <PokemonSort setSort={setSort} />
+          <PokemonSort setSort={setSort} />
         <div className="column is-4" />
 
         {pokemonCards}
+
       </div>
     </div>
   </>
