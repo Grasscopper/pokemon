@@ -9,8 +9,8 @@ const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number
     pageNumbers.push(number);
   }
 
-  const navigate = (event: { currentTarget: { innerHTML: number; }; }) => {
-    props.setCurrentPage(Number(event.currentTarget.innerHTML));
+  const navigate = (event: { currentTarget: { innerText: number; }; }) => {
+    props.setCurrentPage(Number(event.currentTarget.innerText));
   }
 
   const prev = () => {
