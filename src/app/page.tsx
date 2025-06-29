@@ -103,7 +103,7 @@ const Pokedex = () => {
     .catch((error) => console.error(`Cannot fetch list of Pokemon: ${error.message}`));
   }, [pokeball]);
 
-  let sortingFunction = findSortingFunction(sort);
+  const sortingFunction = findSortingFunction(sort);
   const pokemonCards = pokemon.sort(sortingFunction).map((p) => {
     if (p.name.toLowerCase().includes(filter.toLowerCase())) {
       return (<PokemonCard
