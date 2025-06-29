@@ -4,12 +4,12 @@ import React from "react";
 
 const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number) => void; currentPage: number; }) => {
   const numPages = Math.ceil(props.totalPokemon/25);
-  let pageNumbers = [];
+  const pageNumbers = [];
   for (let number = 1; number < numPages + 1; number++) {
     pageNumbers.push(number);
   }
 
-  const navigate = (event: { currentTarget: { innerHTML: any; }; }) => {
+  const navigate = (event: { currentTarget: { innerHTML: number; }; }) => {
     props.setCurrentPage(event.currentTarget.innerHTML);
   }
 
