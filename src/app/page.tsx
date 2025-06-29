@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Pokemon, Stat } from './index'
 import PokemonCard from "./pokemon/PokemonCard";
 import PokemonSort from "./pokemon/PokemonSort";
+import Pagination from "./Pagination";
 import { getRandomIntInclusive, findSortingFunction } from './helperFunctions/helpers';
 
 const Pokedex = () => {
@@ -11,6 +12,7 @@ const Pokedex = () => {
   const [pokeball, setPokeball] = useState(false);
   const [pokeballType, setPokeballType] = useState("Random");
 
+  const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState("")
   const [sort, setSort] = useState("pokedex")
 
@@ -20,6 +22,7 @@ const Pokedex = () => {
 
   const throwPokeball = (event: { currentTarget: { id: React.SetStateAction<string>; }; }) => {
     setPokemon([]);
+    setCurrentPage(1);
     if (event.currentTarget.id === "Random") setPokeballType("Random");
     else if (event.currentTarget.id === "Kanto") setPokeballType("Kanto");
     setPokeball(!pokeball);
@@ -103,8 +106,14 @@ const Pokedex = () => {
     .catch((error) => console.error(`Cannot fetch list of Pokemon: ${error.message}`));
   }, [pokeball]);
 
+  let start = 0;
+  let end = 25;
+  end = end * currentPage;
+  start = end - 25;
+  const displayedPokemon = pokemon.slice(start, end);
   const sortingFunction = findSortingFunction(sort);
-  const pokemonCards = pokemon.sort(sortingFunction).map((p) => {
+
+  const pokemonCards = displayedPokemon.sort(sortingFunction).map((p) => {
     if (p.name.toLowerCase().includes(filter.toLowerCase())) {
       return (<PokemonCard
         key={p.name}
@@ -153,6 +162,15 @@ const Pokedex = () => {
           </button>
         </div>
         <div className="column is-4" />
+
+        <div className="column is-3" />
+        <div className="column is-6">
+          <Pagination 
+          totalPokemon={pokemon.length}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage} />
+        </div>
+        <div className="column is-3" />
 
         <div className="column is-4" />
         <PokemonSort setSort={setSort} />
