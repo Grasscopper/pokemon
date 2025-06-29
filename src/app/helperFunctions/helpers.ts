@@ -64,3 +64,65 @@ export const findSortingFunction = (sortType: string) => {
       return sortByPokedex;
   }
 }
+
+export const getTypeColors = (type: string) => {
+  switch (type) {
+
+    case "Bug":
+      return ["#729F3F", "has-text-white"];
+    
+    case "Dragon":
+      return ["#F16E57", "has-text-white"];
+
+    case "Fairy":
+      return ["#FDB9E9", "has-text-black"];
+
+    case "Fire":
+      return ["#FD7D24", "has-text-white"];
+
+    case "Ghost":
+      return ["#7B62A3", "has-text-white"];
+
+    case "Ground":
+      return ["#ECDAA7", "has-text-black"];
+
+    case "Normal":
+      return ["#F2F2F2", "has-text-black"];
+
+    case "Psychic":
+      return ["#F366B9", "has-text-white"];
+
+    case "Steel":
+      return ["#9EB7B8", "has-text-black"];
+
+    case "Dark":
+      return ["#707070", "has-text-white"];
+
+    case "Electric":
+      return ["#EED535", "has-text-black"];
+
+    case "Fighting":
+      return ["#D56723", "has-text-white"];
+
+    case "Flying":
+      return ["#31AA9C", "has-text-black"];
+
+    case "Grass":
+      return ["#9BCC50", "has-text-black"];
+
+    case "Ice":
+      return ["#51C4E7", "has-text-black"];
+
+    case "Poison":
+      return ["#B97FC9", "has-text-white"];
+
+    case "Rock":
+      return ["#A38C21", "has-text-white"];
+
+    case "Water":
+      return ["#4592C4", "has-text-white"];
+
+    default:
+      return ["#FFFFFF", "has-text-black"];
+  }
+}
