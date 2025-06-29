@@ -9,10 +9,6 @@ const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number
     pageNumbers.push(number);
   }
 
-  const navigate = (event: { currentTarget: { innerText: number; }; }) => {
-    props.setCurrentPage(Number(event.currentTarget.innerText));
-  }
-
   const prev = () => {
     if (props.currentPage != 1) {
       props.setCurrentPage(props.currentPage - 1);
@@ -30,7 +26,9 @@ const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number
     if (page == props.currentPage) current = "is-current";
     return (
       <li key={page}>
-        <a onClick={navigate} className={`pagination-link ${current}`} aria-label={`Goto page ${page}`}>{page}</a>
+        <a id={page.toString()} onClick={() => {props.setCurrentPage(page);}}
+        className={`pagination-link ${current}`}
+        aria-label={`Goto page ${page}`}>{page}</a>
       </li>
     )
   })
