@@ -5,7 +5,13 @@ import React from "react";
 const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number) => void; currentPage: number; }) => {
   const numPages = Math.ceil(props.totalPokemon/25);
   const pageNumbers = [];
-  for (let number = 1; number < numPages + 1; number++) {
+
+  let start = props.currentPage - 2;
+  if (start < 1 ) start = 1;
+  let end = props.currentPage + 3;
+  if (end > numPages) end = numPages + 1;
+
+  for (let number = start; number < end; number++) {
     pageNumbers.push(number);
   }
 
@@ -33,11 +39,48 @@ const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number
     )
   })
 
+  let startPage = <li key={2000}>
+  <a id={"1"} onClick={() => {props.setCurrentPage(1);}}
+    className={`pagination-link`}
+    aria-label={`Goto page 1`}>1</a>
+  </li>
+
+  let endPage = <li key={3000}>
+  <a id={`${numPages}`} onClick={() => {props.setCurrentPage(numPages);}}
+    className={`pagination-link`}
+    aria-label={`Goto page ${numPages}`}>{numPages}</a>
+  </li>
+
+
+  let leftEllipsis = <li>
+  <span className="pagination-ellipsis">&hellip;</span>
+  </li>
+
+  let rightEllipsis = <li>
+  <span className="pagination-ellipsis">&hellip;</span>
+  </li>
+
+  if (props.currentPage - 2 <= 1) {
+    startPage = <></>;
+    leftEllipsis = <></>;
+  }
+
+  if (props.currentPage + 2 >= numPages) {
+    endPage = <></>;
+    rightEllipsis = <></>;
+  }
+
   return (
     <nav className="pagination is-medium" role="navigation" aria-label="pagination">
       <a className="pagination-previous" onClick={prev}>Previous</a>
-      <a className="pagination-next" onClick={next}>Next page</a>
-      <ul className="pagination-list">{pages}</ul>
+      <a className="pagination-next" onClick={next}>Next</a>
+      <ul className="pagination-list">
+        {startPage}
+        {leftEllipsis}
+        {pages}
+        {rightEllipsis}
+        {endPage}
+      </ul>
     </nav>
   )
 }

@@ -30,6 +30,7 @@ const Pokedex = () => {
     setCurrentPage(1);
     if (event.currentTarget.id === "Random") setPokeballType("Random");
     else if (event.currentTarget.id === "Kanto") setPokeballType("Kanto");
+    else if (event.currentTarget.id === "World") setPokeballType("World");
     setPokeball(!pokeball);
   }
   
@@ -42,6 +43,10 @@ const Pokedex = () => {
     }
     else if (pokeballType == "Kanto") {
       limit = 151;
+      offset = 0;
+    }
+    else if (pokeballType == "World") {
+      limit = 1302;
       offset = 0;
     }
 
@@ -140,10 +145,10 @@ const Pokedex = () => {
 
   return (
   <> 
-    <section className="hero is-success" style={{ backgroundColor: "#0B2318" }}>
+    <section className="hero is-primary">
       <div className="hero-body">
-        <p className="title" style={{ color: "#A7BBB2" }}>Pokedex</p>
-        <p className="subtitle" style={{ color: "#A7BBB2" }}>Search for Pokemon</p>
+        <p className="title is-1">Pokedex</p>
+        <p className="subtitle">Search for Pokemon</p>
       </div>
     </section>
 
@@ -189,18 +194,24 @@ const Pokedex = () => {
           onClick={throwPokeball}>
             Visit Kanto
           </button>
+          <button className="button is-warning"
+          id="World"
+          style={{ marginTop: 30 }}
+          onClick={throwPokeball}>
+            All Pokemon
+          </button>
         </div>
 
         <div className="column is-3" />
 
-        <div className="column is-3" />
-        <div className="column is-6">
+        <div className="column is-2" />
+        <div className="column is-8">
           <Pagination 
           totalPokemon={pokemon.length}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage} />
         </div>
-        <div className="column is-3" />
+        <div className="column is-2" />
 
         <div className="column is-4" />
           <PokemonSort setSort={setSort} />
