@@ -6,7 +6,7 @@ const PokemonCard = (props: Pokemon) => {
     const name = props.name;
     const types = props.types.toString().split(',').join(', ');
     const abilities = props.abilities.toString().split(',').join(', ');
-    const moves = props.abilities.toString().split(',').join(', ');
+    const moves = props.moves.toString().split(',').join(', ');
 
     let backgroundTopColor = getTypeColors(props.types[0])[0];
     const backgroundBottomColor = getTypeColors(props.types[0])[0];
