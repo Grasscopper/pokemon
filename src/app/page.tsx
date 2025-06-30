@@ -241,8 +241,8 @@ const Pokedex = () => {
         <div className="column is-4" />
 
         <div className="column is-2" />
-        <div className="column is-4">
-          <div className="select is-success">
+        <div className="column is-8">
+          <div className="select is-success" style={{marginRight: 10 }}>
               <select onChange={changeLimit}>
               <option value="25">Cards Per Page:</option>
               <option value="5">5 Cards</option>
@@ -253,8 +253,8 @@ const Pokedex = () => {
               <option value="1302">All Cards</option>
               </select>
           </div>
-        </div>
           <PokemonSort setSort={setSort} />
+        </div>
         <div className="column is-2" />
 
         {pokemonCards}
