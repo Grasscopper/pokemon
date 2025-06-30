@@ -16,6 +16,7 @@ const Pokedex = () => {
   const [nameFilter, setNameFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
   const [sort, setSort] = useState("pokedex");
+  const [cardLimit, setLimit] = useState(25);
 
   const [listType, setListType] = useState("list")
 
@@ -25,6 +26,10 @@ const Pokedex = () => {
 
   const updateType = (event: { currentTarget: { value: string; }; }) => {
     setTypeFilter(event.currentTarget.value);
+  }
+
+  const changeLimit = (event: { currentTarget: { value: string; }; }) => {
+    setLimit(Number(event.currentTarget.value));
   }
 
   const throwPokeball = (event: { currentTarget: { id: React.SetStateAction<string>; }; }) => {
@@ -124,9 +129,9 @@ const Pokedex = () => {
   }, [pokeball]);
 
   let start = 0;
-  let end = 25;
+  let end = cardLimit;
   end = end * currentPage;
-  start = end - 25;
+  start = end - cardLimit;
   const displayedPokemon = pokemon.slice(start, end);
   const sortingFunction = findSortingFunction(sort);
 
@@ -220,7 +225,8 @@ const Pokedex = () => {
           <Pagination 
           totalPokemon={pokemon.length}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage} />
+          setCurrentPage={setCurrentPage}
+          cardLimit={cardLimit} />
         </div>
         <div className="column is-2" />
 
@@ -234,9 +240,22 @@ const Pokedex = () => {
           </div>
         <div className="column is-4" />
 
-        <div className="column is-4" />
+        <div className="column is-2" />
+        <div className="column is-4">
+          <div className="select is-success">
+              <select onChange={changeLimit}>
+              <option value="25">Cards Per Page:</option>
+              <option value="5">5 Cards</option>
+              <option value="25">25 Cards</option>
+              <option value="50">50 Cards</option>
+              <option value="100">100 Cards</option>
+              <option value="250">250 Cards</option>
+              <option value="1302">All Cards</option>
+              </select>
+          </div>
+        </div>
           <PokemonSort setSort={setSort} />
-        <div className="column is-4" />
+        <div className="column is-2" />
 
         {pokemonCards}
 
