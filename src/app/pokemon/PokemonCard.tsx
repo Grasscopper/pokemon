@@ -16,7 +16,7 @@ const PokemonCard = (props: Pokemon) => {
     }
 
     return (
-        <div className="column is-3" style={{ marginTop: 10 }}>
+        <div className="column is-4" style={{ marginTop: 10 }}>
             <div className="card" style={{ padding: 5 }}>
                 <div style={{ 
                     backgroundColor: backgroundTopColor,

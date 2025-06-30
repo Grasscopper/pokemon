@@ -15,7 +15,9 @@ const Pokedex = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [nameFilter, setNameFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
-  const [sort, setSort] = useState("pokedex")
+  const [sort, setSort] = useState("pokedex");
+
+  const [listType, setListType] = useState("list")
 
   const updateName = (event: { currentTarget: { value: string; }; }) => {
     setNameFilter(event.currentTarget.value);
@@ -32,6 +34,11 @@ const Pokedex = () => {
     else if (event.currentTarget.id === "Kanto") setPokeballType("Kanto");
     else if (event.currentTarget.id === "World") setPokeballType("World");
     setPokeball(!pokeball);
+  }
+
+  const toggleListType = () => {
+    if (listType === "list") setListType("grid");
+    else if (listType === "grid") setListType("list");
   }
   
   useEffect(() => {
@@ -123,6 +130,10 @@ const Pokedex = () => {
   const displayedPokemon = pokemon.slice(start, end);
   const sortingFunction = findSortingFunction(sort);
 
+  let list = <div className="column is-4" />;
+  if (listType === "list") list = <div className="column is-4" />;
+  else if (listType == "grid") list = <></>;
+
   const pokemonCards = displayedPokemon.sort(sortingFunction).map((p) => {
     const nameMatches = p.name.toLowerCase().includes(nameFilter.toLowerCase());
     let typeMatches = false;
@@ -132,14 +143,14 @@ const Pokedex = () => {
       }
     }
     if (nameMatches && typeMatches) {
-      return (<PokemonCard
+      return (<>{list}<PokemonCard
         key={p.name}
         name={p.name}
         picture={p.picture}
         types={p.types}
         abilities={p.abilities}
         stats={p.stats}
-        pokedex={p.pokedex} />)
+        pokedex={p.pokedex} />{list}</>)
     }
   });
 
@@ -212,6 +223,16 @@ const Pokedex = () => {
           setCurrentPage={setCurrentPage} />
         </div>
         <div className="column is-2" />
+
+        <div className="column is-4" />
+        <div className="column is-4">
+          <button 
+          className="button is-primary is-large"
+          onClick={toggleListType}>
+            Toggle View
+          </button>
+          </div>
+        <div className="column is-4" />
 
         <div className="column is-4" />
           <PokemonSort setSort={setSort} />
