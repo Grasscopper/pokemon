@@ -9,7 +9,7 @@ const PokemonSort = (props: { setSort: (arg0: string) => void; }) => {
     <div className="column is-4">
         <div className="select is-success">
             <select onChange={setSort}>
-            <option>Sort Pokemon:</option>
+            <option value="pokedex">Sort Pokemon:</option>
             <option value="pokedex">By Pokedex</option>
             <option value="name">By Name</option>
             <option value="type">By Type</option>

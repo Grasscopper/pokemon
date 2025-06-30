@@ -2,8 +2,8 @@
 
 import React from "react";
 
-const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number) => void; currentPage: number; }) => {
-  const numPages = Math.ceil(props.totalPokemon/25);
+const Pagination = (props: { totalPokemon: number; setCurrentPage: (arg0: number) => void; currentPage: number; cardLimit: number; }) => {
+  const numPages = Math.ceil(props.totalPokemon/props.cardLimit);
   const pageNumbers = [];
 
   let start = props.currentPage - 2;
