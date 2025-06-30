@@ -6,6 +6,7 @@ const PokemonCard = (props: Pokemon) => {
     const name = props.name;
     const types = props.types.toString().split(',').join(', ');
     const abilities = props.abilities.toString().split(',').join(', ');
+    const moves = props.abilities.toString().split(',').join(', ');
 
     let backgroundTopColor = getTypeColors(props.types[0])[0];
     const backgroundBottomColor = getTypeColors(props.types[0])[0];
@@ -17,22 +18,24 @@ const PokemonCard = (props: Pokemon) => {
 
     return (
         <div className="column is-4" style={{ marginTop: 10 }}>
-            <div className="card" style={{ padding: 5 }}>
-                <div style={{ 
+            <div className="card is-flex" style={{ padding: 5 }}>
+                <div style={{
                     backgroundColor: backgroundTopColor,
-                    borderBottom: "solid",
-                    borderColor: "white" }}>
-                    <figure className="image">
+                    borderColor: "white",
+                    borderBottom: 0 }}>
+                    <figure className="image is-128x128">
                     <img src={props.picture}
-                    alt={`Picture of ${name}`} />
+                    alt={`Picture of ${name}`}
+                    style={{ marginTop: 145}} />
                     </figure>
                 </div>
 
-                <div className="card-content" style={{ backgroundColor: backgroundBottomColor }}>
+                <div className="card-content" style={{ backgroundColor: backgroundBottomColor, borderRadius: 0 }}>
                     <p className={`title is-1 is-underlined ${textColor}`}>{name}</p>
-                    <p className={`subtitle ${textColor}`}>{props.pokedex}</p>
+                    <p className={`subtitle ${textColor}`}>#{props.pokedex}</p>
                     <p className={`title is-4 ${textColor}`}>Type: {types}</p>
                     <p className={`title is-4 ${textColor}`}>Abilities: {abilities}</p>
+                    <p className={`title is-4 ${textColor}`}>Moves: {moves}</p>
                     <div className="columns is-multiline">
                         <div className="column is-4">
                             <p className={`subtitle ${textColor}`}>
@@ -41,22 +44,22 @@ const PokemonCard = (props: Pokemon) => {
                         </div>
                         <div className="column is-4">
                             <p className={`subtitle ${textColor}`}>
-                                Attack: {props.stats.attack}
+                                ATK: {props.stats.attack}
                             </p>
                         </div>
                         <div className="column is-4">
                             <p className={`subtitle ${textColor}`}>
-                                Defense: {props.stats.defense}
+                                DEF: {props.stats.defense}
                             </p>
                         </div>
                         <div className="column is-4">
                             <p className={`subtitle ${textColor}`}>
-                                Special Attack: {props.stats.specialAttack}
+                                Sp. ATK: {props.stats.specialAttack}
                             </p>
                         </div>
                         <div className="column is-4">
                             <p className={`subtitle ${textColor}`}>
-                                Special Defense: {props.stats.specialDefense}
+                                Sp. DEF: {props.stats.specialDefense}
                             </p>
                         </div>
                         <div className="column is-4">
