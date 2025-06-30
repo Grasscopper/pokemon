@@ -6,6 +6,7 @@ const PokemonCard = (props: Pokemon) => {
     const name = props.name;
     const types = props.types.toString().split(',').join(', ');
     const abilities = props.abilities.toString().split(',').join(', ');
+    const moves = props.abilities.toString().split(',').join(', ');
 
     let backgroundTopColor = getTypeColors(props.types[0])[0];
     const backgroundBottomColor = getTypeColors(props.types[0])[0];
@@ -25,7 +26,7 @@ const PokemonCard = (props: Pokemon) => {
                     <figure className="image is-128x128">
                     <img src={props.picture}
                     alt={`Picture of ${name}`}
-                    style={{ marginTop: 82}} />
+                    style={{ marginTop: 145}} />
                     </figure>
                 </div>
 
@@ -34,6 +35,7 @@ const PokemonCard = (props: Pokemon) => {
                     <p className={`subtitle ${textColor}`}>#{props.pokedex}</p>
                     <p className={`title is-4 ${textColor}`}>Type: {types}</p>
                     <p className={`title is-4 ${textColor}`}>Abilities: {abilities}</p>
+                    <p className={`title is-4 ${textColor}`}>Moves: {moves}</p>
                     <div className="columns is-multiline">
                         <div className="column is-4">
                             <p className={`subtitle ${textColor}`}>

@@ -5,6 +5,7 @@ export interface Pokemon {
   abilities: string[];
   stats: Stat;
   pokedex: number;
+  moves: string[];
 }
 
 export interface Stat {

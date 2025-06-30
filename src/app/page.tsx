@@ -102,6 +102,17 @@ const Pokedex = () => {
             abilities.push(ability);
           }
 
+          const moves: string[] = [];
+          let counter = 0;
+          for (const m of foundPokemon.moves) {
+            if (counter <= 5) {
+              let move = m.move.name;
+              move = move.charAt(0).toUpperCase() + move.slice(1);
+              moves.push(move);
+              counter++;
+            }
+          }
+
           const stats: Stat = {
             hp: foundPokemon.stats[0].base_stat,
             attack: foundPokemon.stats[1].base_stat,
@@ -117,7 +128,8 @@ const Pokedex = () => {
             types: types,
             abilities: abilities,
             stats: stats,
-            pokedex: foundPokemon.id
+            pokedex: foundPokemon.id,
+            moves: moves
           }
 
           setPokemon(pokemon => [...pokemon, p]);
@@ -155,7 +167,8 @@ const Pokedex = () => {
         types={p.types}
         abilities={p.abilities}
         stats={p.stats}
-        pokedex={p.pokedex} />{list}</>)
+        pokedex={p.pokedex}
+        moves={p.moves}/>{list}</>)
     }
   });
 
