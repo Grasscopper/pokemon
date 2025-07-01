@@ -29,7 +29,7 @@ const sortByAttack = (a: Pokemon, b: Pokemon) => a.stats.attack - b.stats.attack
 const sortByDefense = (a: Pokemon, b: Pokemon) => a.stats.defense - b.stats.defense;
 const sortBySpecialAttack = (a: Pokemon, b: Pokemon) => a.stats.specialAttack - b.stats.specialAttack;
 const sortBySpecialDefense = (a: Pokemon, b: Pokemon) => a.stats.specialDefense - b.stats.specialDefense;
-const sortBySpeed = (a: Pokemon, b: Pokemon) => a.stats.hp - b.stats.speed;
+const sortBySpeed = (a: Pokemon, b: Pokemon) => a.stats.speed - b.stats.speed;
 
 export const findSortingFunction = (sortType: string) => {
   switch (sortType) {
