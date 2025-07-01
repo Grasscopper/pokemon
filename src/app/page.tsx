@@ -5,6 +5,7 @@ import { Pokemon, Stat } from './index'
 import PokemonCard from "./pokemon/PokemonCard";
 import PokemonSort from "./pokemon/PokemonSort";
 import Pagination from "./Pagination";
+import ScrollToTop from "react-scroll-to-top";
 import { getRandomIntInclusive, findSortingFunction } from './helperFunctions/helpers';
 
 const Pokedex = () => {
@@ -18,7 +19,7 @@ const Pokedex = () => {
   const [sort, setSort] = useState("pokedex");
   const [cardLimit, setLimit] = useState(25);
 
-  const [listType, setListType] = useState("list")
+  const [listType, setListType] = useState("grid")
 
   const updateName = (event: { currentTarget: { value: string; }; }) => {
     setNameFilter(event.currentTarget.value);
@@ -233,15 +234,15 @@ const Pokedex = () => {
 
         <div className="column is-3" />
 
-        <div className="column is-2" />
-        <div className="column is-8">
+        <div className="column is-3" />
+        <div className="column is-6">
           <Pagination 
           totalPokemon={pokemon.length}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           cardLimit={cardLimit} />
         </div>
-        <div className="column is-2" />
+        <div className="column is-3" />
 
         <div className="column is-4" />
         <div className="column is-4">
@@ -271,7 +272,13 @@ const Pokedex = () => {
         <div className="column is-2" />
 
         {pokemonCards}
-
+        
+        <ScrollToTop smooth style={{
+          backgroundColor: "#00D1B2",
+          borderRadius: 20,
+          height: 50,
+          width: 50 }}/>
+       
       </div>
     </div>
   </>
