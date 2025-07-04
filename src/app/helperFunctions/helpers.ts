@@ -1,4 +1,4 @@
-import { Pokemon, Stat } from '../index'
+import { Pokemon } from '../index'
 
 export const getRandomIntInclusive = (min: number, max: number) => {
   const minCeiled = Math.ceil(min);
