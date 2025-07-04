@@ -67,7 +67,7 @@ const Pokedex = () => {
         localStorage.setItem("cached", "success");
         setPokemon(allPokemon);
       } catch(error) {
-        console.error("Error fetching Pokemon: " + error.message);
+        console.error("Error fetching Pokemon: " + error);
       }
     }
     if (!localStorage.getItem("cached")) fetchAllPokemon()
