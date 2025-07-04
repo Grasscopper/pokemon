@@ -1,8 +1,9 @@
 import React from "react";
 
-const PokemonSort = (props: { setSort: (arg0: string) => void; }) => {
+const PokemonSort = (props: { setSort: (arg0: string) => void; setCurrentPage: (arg0: number) => void; }) => {
     const setSort = (event: { currentTarget: { value: string; }; }) => {
         props.setSort(event.currentTarget.value);
+        props.setCurrentPage(1);
     }
 
     return (
