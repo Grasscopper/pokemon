@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Pokemon, Stat } from "./index";
 import { PokemonContext } from './PokemonContext';
 import PokemonContainer from "./pokemon/PokemonContainer";
@@ -66,8 +66,9 @@ const Pokedex = () => {
         }
         localStorage.setItem("cached", "success");
         setPokemon(allPokemon);
-      } catch(error) {
-        console.error("Error fetching Pokemon: " + error);
+      } catch(caughtError) {
+        const error = caughtError as AxiosError;
+        console.log(error.response?.data);
       }
     }
     if (!localStorage.getItem("cached")) fetchAllPokemon()
