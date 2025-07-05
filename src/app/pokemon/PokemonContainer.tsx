@@ -66,6 +66,7 @@ const PokemonContainer = () => {
         }
         if (nameMatches && typeMatches) {
         return (<PokemonCard
+            key={p.pokedex}
             name={p.name}
             picture={p.picture}
             types={p.types}
