@@ -45,7 +45,7 @@ const Pokedex = () => {
           const moves: string[] = [];
           let moveLimit = 0;
           for (const m of p.moves) {
-            if (moveLimit <= 8) {
+            if (moveLimit <= 5) {
               moves.push(m.move.name.charAt(0).toUpperCase() + m.move.name.slice(1));
               moveLimit++;
             }
