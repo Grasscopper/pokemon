@@ -1,8 +1,8 @@
 import React from "react";
-import { Pokemon } from '../index'
+import { PokemonCardSize } from '../index'
 import { getTypeColors } from '../helperFunctions/helpers';
 
-const PokemonCard = (props: Pokemon) => {
+const PokemonCard = (props: PokemonCardSize) => {
     let backgroundTopColor = getTypeColors(props.types[0])[0];
     const backgroundBottomColor = getTypeColors(props.types[0])[0];
 

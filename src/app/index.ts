@@ -16,3 +16,7 @@ export interface Stat {
   specialDefense: number;
   speed: number;
 }
+
+export interface PokemonCardSize extends Pokemon {
+  size: number;
+}
