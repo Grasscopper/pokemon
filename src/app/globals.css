@@ -1,8 +1,13 @@
-@media only screen and (min-width: 1000px) {
+@media only screen and (max-width: 1000px) {
   .home {
     margin-right: 20px;
     margin-left: 20px;
   }
+}
+
+.home {
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 @media only screen and (min-width: 1000px) {
