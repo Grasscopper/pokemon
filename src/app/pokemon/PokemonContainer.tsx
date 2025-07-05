@@ -21,18 +21,17 @@ const PokemonContainer = () => {
   
     const updateName = (event: { currentTarget: { value: string; }; }) => {
         setNameFilter(event.currentTarget.value);
+        setCurrentPage(1);
     }
     
     const updateType = (event: { currentTarget: { value: string; }; }) => {
         setTypeFilter(event.currentTarget.value);
+        setCurrentPage(1);
     }
 
     const toggleListType = () => {
-        if (size == 4) {
-            setSize(12);
-        } else {
-            setSize(4);
-        }
+        if (size == 4) setSize(12);
+        else setSize(4);
     }
 
     const visitKanto = () => {
@@ -46,17 +45,16 @@ const PokemonContainer = () => {
     }
 
     let pokemon: Pokemon[] = useContext(PokemonContext);
-    const sortingFunction = findSortingFunction(sort);
-    const end = cardLimit * currentPage;
-    const begin = end - cardLimit;
 
     if (totalPokemon === 151) {
         pokemon.sort(findSortingFunction("pokedex"));
         pokemon = pokemon.slice(0, 151);
     }
-    pokemon = pokemon.sort(sortingFunction).slice(begin, end);
 
-    const pokemonCards = pokemon.map((p) => {
+    // sort and filter all Pokemon
+    const sortingFunction = findSortingFunction(sort);
+
+    pokemon = pokemon.sort(sortingFunction).filter((p: Pokemon) => {
         const nameMatches = p.name.toLowerCase().includes(nameFilter.toLowerCase());
         let typeMatches = false;
         for (const type of p.types) {
@@ -64,7 +62,14 @@ const PokemonContainer = () => {
                 typeMatches = true;
             }
         }
-        if (nameMatches && typeMatches) {
+        return nameMatches && typeMatches
+    });
+
+    // display sorted and filtered Pokemon
+    const end = cardLimit * currentPage;
+    const begin = end - cardLimit;
+
+    const pokemonCards = pokemon.slice(begin, end).map((p) => {
         return (<PokemonCard
             key={p.pokedex}
             name={p.name}
@@ -75,10 +80,9 @@ const PokemonContainer = () => {
             pokedex={p.pokedex}
             moves={p.moves}
             size={size} />)
-        }
     });
 
-    let kantoButton = <><div className="column is-2 hash-text-centered field">
+    let kantoButton = <><div className="column is-2 has-text-centered field">
     <button className="button is-danger is-large"
     style={{ marginTop: 30 }}
     onClick={visitKanto}>
@@ -96,15 +100,6 @@ const PokemonContainer = () => {
         </button>
         </div>
         <div className="column is-3" /></>
-    } else {
-        kantoButton = <><div className="column is-2 has-text-centered field">
-        <button className="button is-danger is-large"
-        style={{ marginTop: 30 }}
-        onClick={visitKanto}>
-            Visit Kanto
-        </button>
-        </div>
-        <div className="column is-3" /></> 
     }
 
     return (
@@ -141,7 +136,7 @@ const PokemonContainer = () => {
         
         <div className="column is-6">
           <Pagination 
-          totalPokemon={totalPokemon}
+          totalPokemon={pokemon.length}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           cardLimit={cardLimit} />
