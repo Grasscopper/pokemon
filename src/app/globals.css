@@ -10,14 +10,14 @@
   margin-left: 20px;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1100px) {
   .card-content {
     min-height: 850;
   }
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1100px) {
   .card-content {
-    min-height: 850;
+    min-height: 900;
   }
 }
