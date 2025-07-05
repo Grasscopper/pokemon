@@ -7,7 +7,7 @@ const PokemonSort = (props: { setSort: (arg0: string) => void; setCurrentPage: (
     }
 
     return (
-    <div className="select is-success" style={{marginLeft: 10 }}>
+    <div className="select is-success" style={{marginLeft: 10, marginBottom: 20 }}>
         <select onChange={setSort}>
         <option value="pokedex">Sort Pokemon:</option>
         <option value="pokedex">By Pokedex</option>

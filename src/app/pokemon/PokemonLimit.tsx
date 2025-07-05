@@ -9,7 +9,7 @@ const PokemonLimit = (props: { setLimit: (arg0: number) => void; setCurrentPage:
     }
 
     return (
-    <div className="select is-success" style={{marginRight: 10 }}>
+    <div className="select is-success" style={{marginRight: 10, marginBottom: 20 }}>
         <select onChange={changeLimit}>
         <option value="25">Cards Per Page:</option>
         <option value="5">5 Cards</option>

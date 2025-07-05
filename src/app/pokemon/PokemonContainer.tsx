@@ -16,8 +16,8 @@ const PokemonContainer = () => {
     const [sort, setSort] = useState("pokedex");
     const [cardLimit, setLimit] = useState(25);
     const [currentPage, setCurrentPage] = useState(1);
-    const [listType, setListType] = useState("grid");
     const [totalPokemon, setTotalPokemon] = useState(1302);
+    const [size, setSize] = useState(4);
   
     const updateName = (event: { currentTarget: { value: string; }; }) => {
         setNameFilter(event.currentTarget.value);
@@ -28,13 +28,12 @@ const PokemonContainer = () => {
     }
 
     const toggleListType = () => {
-        if (listType === "list") setListType("grid");
-        else if (listType === "grid") setListType("list");
+        if (size == 4) {
+            setSize(12);
+        } else {
+            setSize(4);
+        }
     }
-
-    let list = <div className="column is-4" />;
-    if (listType === "list") list = <div className="column is-4" />;
-    else if (listType == "grid") list = <></>;
 
     const visitKanto = () => {
         setTotalPokemon(151);
@@ -66,19 +65,20 @@ const PokemonContainer = () => {
             }
         }
         if (nameMatches && typeMatches) {
-        return (<>{list}<PokemonCard
-            key={p.name}
+        return (<PokemonCard
+            key={p.pokedex}
             name={p.name}
             picture={p.picture}
             types={p.types}
             abilities={p.abilities}
             stats={p.stats}
             pokedex={p.pokedex}
-            moves={p.moves}/>{list}</>)
+            moves={p.moves}
+            size={size} />)
         }
     });
 
-    let kantoButton = <><div className="column is-2 field">
+    let kantoButton = <><div className="column is-2 hash-text-centered field">
     <button className="button is-danger is-large"
     style={{ marginTop: 30 }}
     onClick={visitKanto}>
@@ -88,7 +88,7 @@ const PokemonContainer = () => {
     <div className="column is-3" /></>
     
     if (totalPokemon === 151) {
-        kantoButton = <><div className="column is-2 field">
+        kantoButton = <><div className="column is-2 has-text-centered field">
         <button className="button is-warning is-large"
         style={{ marginTop: 30 }}
         onClick={leaveKanto}>
@@ -97,7 +97,7 @@ const PokemonContainer = () => {
         </div>
         <div className="column is-3" /></>
     } else {
-        kantoButton = <><div className="column is-2 field">
+        kantoButton = <><div className="column is-2 has-text-centered field">
         <button className="button is-danger is-large"
         style={{ marginTop: 30 }}
         onClick={visitKanto}>
@@ -109,7 +109,7 @@ const PokemonContainer = () => {
 
     return (
     <div className ="home">
-        <div className="columns is-multiline has-text-centered">
+        <div className="columns is-multiline">
 
         <div className="column is-3" />
         <div className="column is-2">
@@ -119,7 +119,7 @@ const PokemonContainer = () => {
                 type="text"
                 onChange={updateName}
                 value={nameFilter}
-                placeholder="Filter Name"
+                placeholder="Pikachu"
                 />
             </div>
         </div>
@@ -131,14 +131,14 @@ const PokemonContainer = () => {
                 type="text"
                 onChange={updateType}
                 value={typeFilter}
-                placeholder="Filter Type"
+                placeholder="Electric"
                 />
             </div>
         </div>
 
         {kantoButton}
-
         <div className="column is-3" />
+        
         <div className="column is-6">
           <Pagination 
           totalPokemon={totalPokemon}
@@ -149,7 +149,7 @@ const PokemonContainer = () => {
         <div className="column is-3" />
 
         <div className="column is-4" />
-        <div className="column is-4">
+        <div className="column has-text-centered is-4">
           <button 
           className="button is-primary is-large"
           onClick={toggleListType}>
